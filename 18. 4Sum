@@ -1,0 +1,75 @@
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Example 2:
+
+Input: nums = [2,2,2,2,2], target = 8
+Output: [[2,2,2,2]]
+ 
+
+Constraints:
+
+1 <= nums.length <= 200
+-109 <= nums[i] <= 109
+
+##########
+solution
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>>vec;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int low = j+1;
+                int high = n-1;
+               long long int a = nums[i]+nums[j];
+              long long int target2 = target - a;
+
+                while(low<high){
+                    int two_sum = nums[low]+nums[high];
+                    if(two_sum < target2){
+                        low++;
+                    }
+                    else if(two_sum > target2){
+                        high--;
+                    }
+                    else{
+                        vector<int>v(4,0);
+                            v[0] = nums[i];
+                            v[1] = nums[j];
+                            v[2] = nums[low];
+                            v[3] = nums[high];                       
+                            vec.push_back(v);
+
+
+                            while(low<high && nums[low]==v[2]){
+                                low++;
+                            }
+                            while(low<high && nums[high]==v[3]){
+                                high--;
+                            }
+                    }
+                }
+                while(j+1 < n && nums[j+1]==nums[j]){
+                    j++;
+                }
+            }
+            while(i+1 < n && nums[i+1]==nums[i]){
+                i++;
+            }
+        }
+        return vec;
+    }
+};
