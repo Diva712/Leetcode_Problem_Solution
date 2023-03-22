@@ -1,0 +1,53 @@
+Given a string s, partition s such that every 
+substring
+ of the partition is a 
+palindrome
+. Return all possible palindrome partitioning of s.
+
+ 
+
+Example 1:
+
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+Example 2:
+
+Input: s = "a"
+Output: [["a"]]
+
+Solution
+#########3
+class Solution {
+public:
+    bool isPalindrome (int left , int right , string str){
+        while(left<=right){
+            if(str[left]!=str[right]){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+    void fun (int index , string &s , vector<string>&vec , vector<vector<string>>&res){
+        int n = s.length();
+        if(index == n){
+            res.push_back(vec);
+            return;
+        }
+
+        for(int i=index ; i<n ; i++){
+            if(isPalindrome(index , i , s)){
+                vec.push_back(s.substr(index , i-index+1));
+                fun(i+1 , s , vec , res);
+                vec.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+        vector<string>vec;
+        vector<vector<string>>res;
+        fun(0 , s , vec ,res);
+        return res;
+    }
+};
