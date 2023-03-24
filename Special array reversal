@@ -1,0 +1,69 @@
+Given a string S, containing special characters and all the alphabets, reverse the string without
+affecting the positions of the special characters.
+
+Example 1:
+
+Input: S = "A&B"
+Output: "B&A"
+Explanation: As we ignore '&' and
+then reverse, so answer is "B&A".
+Example 2:
+
+Input: S = "A&x#
+Output: "x&A#"
+Explanation: we swap only A and x.
+
+##########
+solution
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+
+class Solution
+{
+    public:
+    bool fun (char a){
+        if((a>='A' && a<='Z') || (a>='a' && a<='z')){
+            return true;
+        }
+    }
+    string reverse(string str)
+    { 
+        //code here.
+        int n = str.length();
+        int i = 0;
+        int j = n-1;
+        while(i<=j){
+            if(!fun(str[i])){
+                i++;
+            }
+            else if (!fun(str[j])){
+                j--;
+            }
+            else{
+                swap(str[i] , str[j]);
+                i++;
+                j--;
+            }
+        }
+        return str;
+    } 
+};
+
+//{ Driver Code Starts.
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        string s;
+        cin >> s;
+        Solution ob;
+        cout <<ob.reverse(s) << endl;
+    }
+return 0;
+}
+
+
+// } Driver Code Ends
